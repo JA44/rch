@@ -1,0 +1,28 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a ng-href="#">Home</a></li>
+    <li><a ng-href="#">About</a></li>
+    <li><a ng-href="#">Contact</a></li>
+  </ul>
+  <h3 class="text-muted">rchSeance</h3>
+</div>
+<div class="jumbotron">
+    <table>
+        <thead>
+            <th>Date</th>
+            <th>Nombre</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="seance in seances">
+                <td>{{seance.date}}</td>
+                <td>{{seance.nb}}</td>
+                <td><a href="#/edit/{{seance.id}}">Add</a> Delete</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+  <p>♥ from the Yeoman team</p>
+</div>

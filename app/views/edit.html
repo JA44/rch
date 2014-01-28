@@ -1,0 +1,14 @@
+<div class="btn-group" data-toggle="buttons">
+  <label class="btn btn-primary">
+    <input type="radio" ng-model="seance.type" value="0" name="options">INDOOR
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" ng-model="seance.type" value="1" name="options">OUTDOOR
+  </label>
+</div>
+<input type="number" ng-model="seance.nb" /><br />
+<input type="number" ng-model="seance.distance" ng-show="seance.type" /><br />
+<textarea ng-model="seance.remarks"></textarea>
+<br />  
+<button ng-click="save()">Save</button>
+    

@@ -12,10 +12,14 @@ angular.module('rchSeanceApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/edit/:seanceId', {
-        controller:'EditCtrl',
+      .when('/edit/:seanceIndex', {
+            controller:'EditCtrl',
         templateUrl:'views/edit.html'
       })
+      .when('/new', {
+            controller:'CreateCtrl',
+            templateUrl:'views/edit.html'
+        })
       .otherwise({
         redirectTo: '/'
       });

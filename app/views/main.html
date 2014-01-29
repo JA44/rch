@@ -7,6 +7,7 @@
   <h3 class="text-muted">rchSeance</h3>
 </div>
 <div class="jumbotron">
+    <a href="#/new">Add</a>
     <table>
         <thead>
             <th>Date</th>
@@ -17,7 +18,7 @@
             <tr ng-repeat="seance in seances">
                 <td>{{seance.date}}</td>
                 <td>{{seance.nb}}</td>
-                <td><a href="#/edit/{{seance.id}}">Add</a> Delete</td>
+                <td><a href="#/edit/{{$index}}">Edit</a> <a href="delete({{$index}})">Delete</a></td>
             </tr>
         </tbody>
     </table>

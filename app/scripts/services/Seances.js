@@ -21,6 +21,12 @@ angular.module('rchSeanceApp')
             return seances.filter(function(seance){
                 return seance.id === id;
             })[0];
+        },
+        save: function(seance, index){
+            seances[index] = seance;
+        },
+        add: function(seance){
+            seances.push(seance);
         }
     }
   });

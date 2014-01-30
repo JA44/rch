@@ -2,11 +2,13 @@
 
 angular.module('rchSeanceApp')
   .controller('MainCtrl', function ($scope, $location, Seances) {
-    $scope.seances = Seances.getAll();
+    $scope.seances = Seances.query();
     $scope.delete = function(index){
-        //TODO
+        Seances.delete({seanceId:index}, function(){
+            $location.path('/');
+        });
     }
     $scope.go = function (path) {
-        console.dir($location.path(path));
+        $location.path(path);
     };
   });

@@ -2,9 +2,9 @@
 
 angular.module('rchSeanceApp')
     .controller('EditCtrl', function($scope, $routeParams, $location, Seances) {
-        $scope.seance = Seances.getAll()[$routeParams.seanceIndex];
+        $scope.seance = Seances.get({seanceId:$routeParams.seanceId});
         $scope.save = function() {
-            Seances.save($scope.seance, $routeParams.seanceIndex);
+            $scope.seance.$update();
             $location.path('/');
         }
 });

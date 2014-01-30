@@ -12,9 +12,9 @@ angular.module('rchSeanceApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/edit/:seanceIndex', {
+      .when('/edit/:seanceId', {
             controller:'EditCtrl',
-        templateUrl:'views/edit.html'
+            templateUrl:'views/edit.html'
       })
       .when('/new', {
             controller:'CreateCtrl',

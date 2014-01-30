@@ -3,7 +3,7 @@
 angular.module('rchSeanceApp')
     .controller('CreateCtrl', function($scope, $location, Seances) {
         $scope.save = function() {
-            Seances.add($scope.seance);
+            Seances.save({}, $scope.seance);
             $location.path('/');
         }
 });

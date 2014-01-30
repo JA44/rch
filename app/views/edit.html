@@ -1,14 +1,37 @@
-<div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-primary">
-    <input type="radio" ng-model="seance.type" value="0" name="options">INDOOR
-  </label>
-  <label class="btn btn-primary">
-    <input type="radio" ng-model="seance.type" value="1" name="options">OUTDOOR
-  </label>
+<div class="form-group">
+    <label>Type de séance :</label>
 </div>
-<input type="number" ng-model="seance.nb" /><br />
-<input type="number" ng-model="seance.distance" ng-show="seance.type" /><br />
-<textarea ng-model="seance.remarks"></textarea>
-<br />  
-<button ng-click="save()">Save</button>
-    
+<div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-primary">
+        <input type="radio" ng-model="seance.type" value="0" name="options">INDOOR
+    </label>
+    <label class="btn btn-primary">
+        <input type="radio" ng-model="seance.type" value="1" name="options">OUTDOOR
+    </label>
+</div>
+<div class="form-group">
+    <label for="date">Date :</label>
+    <input type="date" ng-model="seance.date" class="form-control" id="nombre" placeholder="Date de la séance">
+</div>
+<div class="form-group">
+    <label for="nombre">Nombre :</label>
+    <input type="number" ng-model="seance.nb" class="form-control" id="nombre" placeholder="Nombre de participants">
+</div>
+<div class="form-group">
+    <label for="distance">Remarques :</label>
+    <textarea ng-model="seance.remarks" class="form-control" rows="3"></textarea>
+</div>
+<div class="form-group" ng-show="seance.type">
+    <label for="distance">Distance :</label>
+    <input type="number" ng-model="seance.distance" class="form-control" id="distance" placeholder="Distance effectuée">
+</div>
+<div class="form-group" ng-show="seance.type">
+    <label for="start">Heure de début :</label>
+    <input type="time" ng-model="seance.start" class="form-control" id="start" placeholder="Heure de début">
+</div>
+<div class="form-group" ng-show="seance.type">
+    <label for="end">Heure de fin :</label>
+    <input type="time" ng-model="seance.end" class="form-control" id="end" placeholder="Heure de début">
+</div>
+<button type="button" class="btn btn-default">Annuler</button>
+<button type="button" class="btn btn-primary" ng-click="save()">Save</button>

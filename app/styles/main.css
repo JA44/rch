@@ -59,6 +59,13 @@ body {
   margin-top: 28px;
 }
 
+input.ng-invalid.ng-dirty {
+    background-color: #FA787E;
+}
+input.ng-valid.ng-dirty {
+    background-color: #78FA89;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */

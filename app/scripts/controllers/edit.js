@@ -7,4 +7,9 @@ angular.module('rchSeanceApp')
             $scope.seance.$update();
             $location.path('/');
         }
+        
+        $scope.go = function (path) {
+            alert(path);
+            $location.path(path);
+        };
 });

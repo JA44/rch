@@ -62,7 +62,7 @@ body {
 input.ng-invalid {
     border-color: #FA787E;
 }
-input.ng-valid {
+textarea.ng-valid, input.ng-valid {
     border-color: #78FA89;
 }
 /* Responsive: Portrait tablets and up */

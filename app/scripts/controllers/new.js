@@ -12,4 +12,8 @@ angular.module('rchSeanceApp')
             Seances.save({}, $scope.seance);
             $location.path('/');
         }
+        
+        $scope.go = function (path) {
+            $location.path(path);
+        };
 });

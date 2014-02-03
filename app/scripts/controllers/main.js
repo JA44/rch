@@ -3,9 +3,10 @@
 angular.module('rchSeanceApp')
   .controller('MainCtrl', function ($scope, $location, Seances) {
     $scope.seances = Seances.query();
-    $scope.delete = function(index){
-        Seances.delete({seanceId:index}, function(){
+    $scope.delete = function(id){
+        Seances.delete({seanceId:id}, function(){
             $location.path('/');
+            $scope.seances = Seances.query();
         });
     }
     $scope.go = function (path) {

@@ -24,6 +24,7 @@ db.insert(seance, function (err, newDoc) {   // Callback is optional
   
   
 });
+app.use(express.bodyParser());
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
@@ -47,18 +48,21 @@ app.get('/seances/:id', function(req, res) {
 });
 app.delete('/seances/:id', function(req, res) {
     console.log('seances DELETE');
+    db.remove({ _id: req.params.id }, {}, function (err, numRemoved) {
+        res.end();
+    });
     //TODO
 });
 app.post('/seances', function(req, res) {
     console.log('seances CREATION');
-    //TODO
+    
 });
 app.put('/seances/:id', function(req, res) {
     console.log('seances modification');
-    console.dir(req);
-    //db.update({_id: req.params.id}, { planet: 'Pluton', inhabited: false }, { upsert: true }, function (err, numReplaced, upsert) {
-
-    //});
+    db.update({_id: req.params.id}, req.body, { upsert: true }, function (err, numReplaced, upsert) {
+        console.dir(err);
+        res.end();
+    });
     //TODO
 });
 app.listen(8080);

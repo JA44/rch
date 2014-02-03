@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="seance in seances">
-                <td>{{seance.date}}</td>
+                <td>{{seance.date| date:'dd/MM/yyyy'}}</td>
                 <td>
                     <span ng-show="!seance.type">INDOOR</span>
                     <span ng-show="seance.type">OUTDOOR</span>
@@ -23,9 +23,9 @@
                 <td>{{seance.nb}}</td>
                 <td>{{seance.distance}}</td>
                 <td>
-                    <button ng-click="go('/edit/' + $index)" type="button" class="btn btn-primary">
+                    <a href="#/edit/{{seance._id}}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-edit"></span> Edit
-                    </button>
+                    </a>
                     <button  ng-click="delete($index)" type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove"></span> Delete
                     </button>

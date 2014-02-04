@@ -5,7 +5,6 @@ angular.module('rchSeanceApp')
     $scope.seances = Seances.query();
     $scope.delete = function(id){
         Seances.delete({seanceId:id}, function(){
-            $location.path('/');
             $scope.seances = Seances.query();
         });
     }

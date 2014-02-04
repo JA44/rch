@@ -9,8 +9,9 @@ angular.module('rchSeanceApp')
             end: '22:00'
         };
         $scope.save = function() {
-            Seances.save({}, $scope.seance);
-            $location.path('/');
+            Seances.save({}, $scope.seance, function(){
+                $location.path('/');
+            });
         }
         
         $scope.go = function (path) {

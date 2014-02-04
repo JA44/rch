@@ -1,30 +1,12 @@
 // all environments
-var express = require('express');
-var app = express();
-var Datastore = require('nedb'),
-    db = new Datastore({ filename: 'seances.db' });
-    
-db.loadDatabase(function (err) {    // Callback is optional
-  console.dir(err);
-  
-  var seance = {
-    date: new Date(),
-    nb: 15,
-    type: 0,
-    distance: 12,
-    remarks: "bla bla bla other commentaires",
-    start: '20:00',
-    end: '21:45'
-    };
+var express = require('express'),
+    app = express();
+    Datastore = require('nedb'),
+    db = new Datastore({ filename: 'seances.db', autoload: true });
 
-db.insert(seance, function (err, newDoc) {   // Callback is optional
-  // newDoc is the newly inserted document, including its _id
-  // newDoc has no key called notToBeSaved since its value was undefined
-});
-  
-  
-});
-app.use(express.bodyParser());
+//app.use(express.compress()); TODO
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
@@ -49,20 +31,21 @@ app.get('/seances/:id', function(req, res) {
 app.delete('/seances/:id', function(req, res) {
     console.log('seances DELETE');
     db.remove({ _id: req.params.id }, {}, function (err, numRemoved) {
+        console.log('delete');
         res.end();
     });
     //TODO
 });
 app.post('/seances', function(req, res) {
     console.log('seances CREATION');
-    
+    db.insert(req.body, function (err, newDoc) {   // Callback is optional
+        res.end();
+    });
 });
 app.put('/seances/:id', function(req, res) {
     console.log('seances modification');
     db.update({_id: req.params.id}, req.body, { upsert: true }, function (err, numReplaced, upsert) {
-        console.dir(err);
         res.end();
     });
-    //TODO
 });
 app.listen(8080);

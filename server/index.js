@@ -2,7 +2,8 @@
 var express = require('express'),
     app = express();
     Datastore = require('nedb'),
-    db = new Datastore({ filename: 'seances.db', autoload: true });
+    db = new Datastore({ filename: 'seances.db', autoload: true }),
+    Spreadsheet = require('edit-google-spreadsheet');
 
 //app.use(express.compress()); TODO
 app.use(express.json());
@@ -16,6 +17,51 @@ app.use(function (req, res, next) {
     next();
 });
 
+var getValues = function(object){
+    var values = Object.keys(object).map(function (key) {
+        return object[key];
+    });
+    return values;
+}
+
+var setDatas = function(){
+    db.find({}, function (err, docs) {
+        //TODO gestion des erreurs
+        var datas = docs.map(function(row){
+            return getValues(row);
+        });
+        saveToGoogleDrive(datas);
+    });
+}
+
+var saveToGoogleDrive = function(datas){
+     var Spreadsheet = require('edit-google-spreadsheet'),
+        fs = require('fs');
+     fs.readFile('conf.json', 'utf-8', function (err, confData) {
+        if (err) throw err;
+        confJSON = JSON.parse(confData);
+        Spreadsheet.load({
+            debug: true,
+            spreadsheetId: 'tuf_RJ2mkUJL_Xk7qNGrWbg', //TODO conf
+            worksheetId: 'od6', //TODO conf
+            username: confJSON.email,
+            password: confJSON.password
+
+          }, function sheetReady(err, spreadsheet) {
+            //use speadsheet!
+            if(err) throw err;
+            
+            
+
+            spreadsheet.add([{id:5, data: '2212121'}]);
+             spreadsheet.send(function(err) {
+                if(err) throw err;
+                console.log("Updated");
+            });
+        });
+    });
+}
+saveToGoogleDrive();
 app.get('/seances', function(req, res) {
     db.find({}, function (err, docs) {
         //TODO gestion des erreurs
@@ -34,18 +80,20 @@ app.delete('/seances/:id', function(req, res) {
         console.log('delete');
         res.end();
     });
-    //TODO
+    setDatas();
 });
 app.post('/seances', function(req, res) {
     console.log('seances CREATION');
     db.insert(req.body, function (err, newDoc) {   // Callback is optional
         res.end();
     });
+    setDatas();
 });
 app.put('/seances/:id', function(req, res) {
     console.log('seances modification');
     db.update({_id: req.params.id}, req.body, { upsert: true }, function (err, numReplaced, upsert) {
         res.end();
     });
+    setDatas();
 });
 app.listen(8080);

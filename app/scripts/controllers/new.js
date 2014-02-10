@@ -3,7 +3,7 @@
 angular.module('rchSeanceApp')
     .controller('CreateCtrl', function($scope, $location, $filter, Seances) {
         $scope.seance = {
-            type: false,
+            type: 'out',
             date: $filter("date")(Date.now(), 'yyyy-MM-dd'),
             start: '20:00',
             end: '22:00'

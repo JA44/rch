@@ -2,7 +2,7 @@
     <div class="form-group">
         <label>Type de séance :</label>
     </div>
-    <input-choice ng-model="seance.type"></input-choice>
+    <input-choice ng-model="seance.type" choice1="INDOOR" choice2="OUTDOOR"></input-choice>
     <div class="row">
         <div class="form-group col-xs-6">
            <label for="date">Date :</label>
@@ -18,7 +18,7 @@
         <label for="distance">Remarques :</label>
         <textarea ng-model="seance.remarks" class="form-control" rows="3"></textarea>
     </div>
-    <div class="row" ng-show="seance.type">
+    <div class="row" ng-show="seance.type ==='OUTDOOR'">
         <div class="form-group col-sm-4 col-xs-12">
             <label for="distance">Distance :</label>
             <input type="number" ng-model="seance.distance" class="form-control" id="distance" placeholder="Distance effectuée" ng-required="seance.type">

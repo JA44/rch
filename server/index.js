@@ -2,6 +2,7 @@
 var express = require('express'),
     app = express();
     Datastore = require('nedb'),
+    Seance = require('./seance.js').Seance,
     db = new Datastore({ filename: 'seances.db', autoload: true }),
     Spreadsheet = require('edit-google-spreadsheet');
 
@@ -24,7 +25,9 @@ var getValues = function(object){
     return values;
 }
 
-var setDatas = function(){
+var saveDatas = function(){
+    return;
+    //TODO
     db.find({}, function (err, docs) {
         //TODO gestion des erreurs
         var datas = docs.map(function(row){
@@ -61,7 +64,7 @@ var saveToGoogleDrive = function(datas){
         });
     });
 }
-saveToGoogleDrive();
+//saveToGoogleDrive();
 app.get('/seances', function(req, res) {
     db.find({}, function (err, docs) {
         //TODO gestion des erreurs
@@ -75,25 +78,32 @@ app.get('/seances/:id', function(req, res) {
     });
 });
 app.delete('/seances/:id', function(req, res) {
-    console.log('seances DELETE');
     db.remove({ _id: req.params.id }, {}, function (err, numRemoved) {
         console.log('delete');
         res.end();
     });
-    setDatas();
+    saveDatas();
 });
 app.post('/seances', function(req, res) {
-    console.log('seances CREATION');
-    db.insert(req.body, function (err, newDoc) {   // Callback is optional
-        res.end();
-    });
-    setDatas();
+    if(new Seance(req.body).validator()){
+        db.insert(req.body, function (err, newDoc) {
+            res.end();
+        });
+    }else{
+        res.send(404, 'Sorry, we cannot find that!');
+    }
+    saveDatas();
 });
 app.put('/seances/:id', function(req, res) {
-    console.log('seances modification');
-    db.update({_id: req.params.id}, req.body, { upsert: true }, function (err, numReplaced, upsert) {
-        res.end();
-    });
-    setDatas();
+    if(new Seance(req.body).validator()){
+        db.update({_id: req.params.id}, req.body, { upsert: true }, function (err, numReplaced, upsert) {
+            res.end();
+        });
+    }else{
+        res.send(404, 'Sorry, we cannot find that!');
+    }
+    saveDatas();
 });
+
+console.log(new Seance({}).validator());
 app.listen(8080);

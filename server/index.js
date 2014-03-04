@@ -4,7 +4,8 @@ var express = require('express'),
     Datastore = require('nedb'),
     Seance = require('./seance.js').Seance,
     db = new Datastore({ filename: 'seances.db', autoload: true }),
-    Spreadsheet = require('edit-google-spreadsheet');
+    Spreadsheet = require('edit-google-spreadsheet')
+    Q = require('q');
 
 //app.use(express.compress()); TODO
 app.use(express.json());
@@ -26,14 +27,18 @@ var getValues = function(object){
 }
 
 var saveDatas = function(){
-    return;
     //TODO
-    db.find({}, function (err, docs) {
-        //TODO gestion des erreurs
-        var datas = docs.map(function(row){
-            return getValues(row);
+    db.find({}, function (err, datas) {
+        var datasToSaved = datas.map(function(data){
+            return Object.keys(data)
+                .filter(function(index){
+                    return index !== '_id';
+                })
+                .map(function(index){ 
+                    return data[index];
+                });
         });
-        saveToGoogleDrive(datas);
+        saveToGoogleDrive(datasToSaved);
     });
 }
 
@@ -56,7 +61,7 @@ var saveToGoogleDrive = function(datas){
             
             
 
-            spreadsheet.add([{id:5, data: '2212121'}]);
+            spreadsheet.add(datas);
              spreadsheet.send(function(err) {
                 if(err) throw err;
                 console.log("Updated");
@@ -104,6 +109,6 @@ app.put('/seances/:id', function(req, res) {
     }
     saveDatas();
 });
+saveDatas();
 
-console.log(new Seance({}).validator());
 app.listen(8080);

@@ -42,4 +42,7 @@
         <button type="button" ng-click="go('/')" class="btn btn-default">Annuler</button>
         <button type="button" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()">Save</button>
     </div>
+    <div ng-show="error" class="alert alert-danger">
+        <strong>Warning!</strong> {{error}}
+    </div>
 </form>

@@ -10,7 +10,7 @@ function Seance(seance){
     this.end        = seance.end || ''
     this.nb         = seance.nb || 0;
     this.distance   = seance.distance || 0;
-    
+    this.remarks    = '';
     return this;
 }
 

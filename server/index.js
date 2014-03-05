@@ -13,8 +13,8 @@ app.use(express.urlencoded());
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Content-Type', 'application/json');
     next();
 });
@@ -90,8 +90,9 @@ app.delete('/seances/:id', function(req, res) {
     saveDatas();
 });
 app.post('/seances', function(req, res) {
-    if(new Seance(req.body).validator()){
-        db.insert(req.body, function (err, newDoc) {
+    var seance = new Seance(req.body);
+    if(seance.validator()){
+        db.insert(seance, function (err, newDoc) {
             res.end();
         });
     }else{
@@ -100,8 +101,9 @@ app.post('/seances', function(req, res) {
     saveDatas();
 });
 app.put('/seances/:id', function(req, res) {
-    if(new Seance(req.body).validator()){
-        db.update({_id: req.params.id}, req.body, { upsert: true }, function (err, numReplaced, upsert) {
+    var seance = new Seance(req.body);
+    if(seance.validator()){
+        db.update({_id: req.params.id}, seance, { upsert: true }, function (err, numReplaced, upsert) {
             res.end();
         });
     }else{

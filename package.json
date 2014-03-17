@@ -42,7 +42,10 @@
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "edit-google-spreadsheet": "~0.2.4"
+    "edit-google-spreadsheet": "~0.2.4",
+    "express": "~3.4.8",
+    "validator": "~3.5.0",
+    "q": "~1.0.1"
   },
   "engines": {
     "node": ">=0.8.0"

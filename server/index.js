@@ -58,8 +58,6 @@ var saveToGoogleDrive = function(datas){
           }, function sheetReady(err, spreadsheet) {
             //use speadsheet!
             if(err) throw err;
-            
-            
 
             spreadsheet.add(datas);
              spreadsheet.send(function(err) {

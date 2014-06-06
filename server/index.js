@@ -27,6 +27,7 @@ var getValues = function(object){
 }
 
 var saveDatas = function(){
+    return;
     //TODO
     db.find({}, function (err, datas) {
         var datasToSaved = datas.map(function(data){

@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('rchSeanceApp')
-  .controller('MainCtrl', function ($scope, $location, Restangular, Seances) {
+  .controller('MainCtrl', function ($scope, $location, Restangular) {
     //$scope.seances = Seances.query();
-    var baseSeances = Restangular.all('seances');
 
     $scope.list = function(){
-        baseSeances.getList().then(function(seances){
-            $scope.seances = seances;    
-        });
+        $scope.seances = Restangular.all("seances").getList().$object;
     };
 
     $scope.delete = function(id){

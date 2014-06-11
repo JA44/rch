@@ -15,7 +15,12 @@ angular.module('rchSeanceApp', [
             })
             .when('/edit/:seanceId', {
                 controller: 'EditCtrl',
-                templateUrl: 'views/edit.html'
+                templateUrl: 'views/edit.html',
+                resolve: {
+                    seance: function(Restangular, $route){
+                        return Restangular.one('seances', $route.current.params.seanceId).get();
+                    }
+                }
             })
             .when('/new', {
                 controller: 'CreateCtrl',
@@ -27,4 +32,16 @@ angular.module('rchSeanceApp', [
     })
     .run(['Restangular', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('http://localhost:8080');
+            RestangularProvider.setRestangularFields({
+                id: '_id'
+            });
+
+            RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
+
+                if (operation === 'put') {
+                    elem._id = undefined;
+                    return elem;
+                }
+                return elem;
+            });
     }]);

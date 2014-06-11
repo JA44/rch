@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rchSeanceApp')
-    .controller('CreateCtrl', function($scope, $location, $filter, Seances) {
+    .controller('CreateCtrl', function($scope, $location, $filter, Restangular) {
         $scope.seance = {
             type: 'INDOOR',
             date: $filter("date")(Date.now(), 'yyyy-MM-dd'),
@@ -9,7 +9,7 @@ angular.module('rchSeanceApp')
             end: '22:00'
         };
         $scope.save = function() {
-            Seances.save({}, $scope.seance).$promise.then(function(){
+            Restangular.all('seances').post($scope.seance).then(function(seance) {
                 $location.path('/');
             });
         }

@@ -1,0 +1,48 @@
+<style>
+    /*wait the support in angular (1.3) of input[type=time]*/
+    input[type=time]:invalid{
+        border:red solid 1px;
+    }
+</style>
+<form name="form" novalidate>
+    <div class="form-group">
+        <label>Type de séance :</label>
+    </div>
+    <input-choice ng-model="seance.type" choice1="INDOOR" choice2="OUTDOOR"></input-choice>
+    <div class="row">
+        <div class="form-group col-xs-6">
+           <label for="date">Date :</label>
+           <input type="date" ng-model="seance.date" class="form-control" id="nombre" placeholder="Date de la séance" required>
+        </div>
+        <div class="form-group col-xs-6">
+            <label for="nombre">Nombre :</label>
+            <input type="number" ng-model="seance.nb" class="form-control" id="nombre" placeholder="Nombre de participants" required>
+        </div>       
+    </div>
+
+    <div class="form-group">
+        <label for="distance">Remarques :</label>
+        <textarea ng-model="seance.remarks" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="row" ng-show="seance.type ==='OUTDOOR'">
+        <div class="form-group col-sm-4 col-xs-12">
+            <label for="distance">Distance :</label>
+            <input type="number" ng-model="seance.distance" class="form-control" id="distance" placeholder="Distance effectuée" ng-required="seance.type ==='OUTDOOR'">
+        </div>
+        <div class="form-group col-sm-4 col-xs-6" >
+            <label for="start">Heure de début :</label>
+            <input type="time" ng-model="seance.start" class="form-control" id="start" min="00:00" max="{{seance.end}}" placeholder="Heure de début" ng-required="seance.type">
+        </div>
+        <div class="form-group col-sm-4 col-xs-6">
+            <label for="end">Heure de fin :</label>
+            <input type="time" ng-model="seance.end" class="form-control" id="end" placeholder="Heure de début" min="00:00:00" max="{{seance.end}}" ng-required="seance.type">
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="button" ng-click="go('/')" class="btn btn-default">Annuler</button>
+        <button type="button" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()">Save</button>
+    </div>
+    <div ng-show="error" class="alert alert-danger">
+        <strong>Warning!</strong> {{error}}
+    </div>
+</form>

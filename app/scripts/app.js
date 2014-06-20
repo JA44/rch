@@ -4,11 +4,35 @@ angular.module('rchSeanceApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngRoute',
+    'ui.router',
     'restangular'
 ])
-    .config(function($routeProvider) {
-        $routeProvider
+    .config(function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/seance');
+        
+        $stateProvider
+            .state('seance', {
+                url: '/seance',
+                controller: 'MainCtrl',
+                templateUrl: 'views/seance.list.html'
+            })
+            .state('edit', {
+                url: '/edit/:seanceId',
+                controller: 'EditCtrl',
+                templateUrl: 'views/seance.edit.html',
+                resolve: {
+                    seance: function(Restangular, $route){
+                        return Restangular.one('seances', $route.current.params.seanceId).get();
+                    }
+                }
+            })
+            .state('new', {
+                url: '/new',
+                controller: 'CreateCtrl',
+                templateUrl: 'views/seance.edit.html'
+            });
+            
+      /*  $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
@@ -28,7 +52,7 @@ angular.module('rchSeanceApp', [
             })
             .otherwise({
                 redirectTo: '/'
-            });
+            });*/
     })
     .run(['Restangular', function(RestangularProvider) {
             RestangularProvider.setBaseUrl('http://localhost:8080');

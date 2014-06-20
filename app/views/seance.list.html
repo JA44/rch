@@ -1,0 +1,35 @@
+<div class="header">
+  <h3 class="text-muted">RCH - Roller Club Herblinois - Séance Randonnée</h3>
+</div>
+<div>
+    <button ui-href="seance.new" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> Add
+    </button>
+    <table  class="table table-striped">
+        <thead>
+            <th>Date</th>
+            <th>Séance</th>
+            <th>Nombre</th>
+            <th>Distance</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="seance in seances">
+                <td>{{seance.date | date:'dd/MM/yyyy'}}</td>
+                <td>{{seance.type}}</td>
+                <td>{{seance.nb}}</td>
+                <td>{{seance.distance}}</td>
+                <td>
+                    <a ui-href="seance.edit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    </a>
+                    <button  ng-click="delete(seance._id)" type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span> Delete
+                    </button>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="footer">
+  <p>JA</p>
+</div>

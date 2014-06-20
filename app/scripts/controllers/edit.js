@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rchSeanceApp')
-    .controller('EditCtrl', function($scope, $routeParams, $location, seance) {
+    .controller('EditCtrl', function($scope, $location, seance) {
         $scope.seance = seance;
         $scope.error = '';
         $scope.save = function() {            

@@ -9,7 +9,7 @@ angular.module('rchSeanceApp', [
 ])
     .config(function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/seance');
-        
+
         $stateProvider
             .state('seance', {
                 url: '/seance',
@@ -21,8 +21,8 @@ angular.module('rchSeanceApp', [
                 controller: 'EditCtrl',
                 templateUrl: 'views/seance.edit.html',
                 resolve: {
-                    seance: function(Restangular, $route){
-                        return Restangular.one('seances', $route.current.params.seanceId).get();
+                    seance: function(Restangular, $stateParams) {
+                        return Restangular.one('seances', $stateParams.seanceId).get();
                     }
                 }
             })
@@ -31,41 +31,19 @@ angular.module('rchSeanceApp', [
                 controller: 'CreateCtrl',
                 templateUrl: 'views/seance.edit.html'
             });
-            
-      /*  $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
-            })
-            .when('/edit/:seanceId', {
-                controller: 'EditCtrl',
-                templateUrl: 'views/edit.html',
-                resolve: {
-                    seance: function(Restangular, $route){
-                        return Restangular.one('seances', $route.current.params.seanceId).get();
-                    }
-                }
-            })
-            .when('/new', {
-                controller: 'CreateCtrl',
-                templateUrl: 'views/edit.html'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });*/
     })
     .run(['Restangular', function(RestangularProvider) {
-            RestangularProvider.setBaseUrl('http://localhost:8080');
-            RestangularProvider.setRestangularFields({
-                id: '_id'
-            });
+        RestangularProvider.setBaseUrl('http://localhost:8080');
+        RestangularProvider.setRestangularFields({
+            id: '_id'
+        });
 
-            RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
+        RestangularProvider.setRequestInterceptor(function(elem, operation, what) {
 
-                if (operation === 'put') {
-                    elem._id = undefined;
-                    return elem;
-                }
+            if (operation === 'put') {
+                elem._id = undefined;
                 return elem;
-            });
+            }
+            return elem;
+        });
     }]);

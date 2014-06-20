@@ -2,7 +2,7 @@
   <h3 class="text-muted">RCH - Roller Club Herblinois - Séance Randonnée</h3>
 </div>
 <div>
-    <button ui-href="seance.new" type="button" class="btn btn-primary">
+    <button ui-sref="new" type="button" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span> Add
     </button>
     <table  class="table table-striped">
@@ -20,7 +20,7 @@
                 <td>{{seance.nb}}</td>
                 <td>{{seance.distance}}</td>
                 <td>
-                    <a ui-href="seance.edit" class="btn btn-primary">
+                    <a ui-sref="edit({seanceId:seance._id})" class="btn btn-primary">
                         <span class="glyphicon glyphicon-edit"></span> Edit
                     </a>
                     <button  ng-click="delete(seance._id)" type="button" class="btn btn-danger">

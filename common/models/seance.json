@@ -1,0 +1,41 @@
+{
+  "name": "seance",
+  "plural": "seances",
+  "base": "PersistedModel",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "distance": {
+      "type": "number"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "date",
+      "required": true
+    },
+    "endTime": {
+      "type": "date",
+      "required": true
+    },
+    "people": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

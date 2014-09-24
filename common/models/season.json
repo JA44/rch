@@ -1,0 +1,29 @@
+{
+  "name": "season",
+  "plural": "seasons",
+  "base": "PersistedModel",
+  "properties": {
+	"id": {
+		"type": "string",
+		"required": true
+	},
+    "start": {
+      "type": "number",
+      "required": true
+    },
+    "end": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+	"seances": {
+		"type": "hasMany",
+		"model": "seance",
+		"foreignKey": "seasonId"
+	}
+  },
+  "acls": [],
+  "methods": []
+}
